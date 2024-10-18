@@ -1,0 +1,25 @@
+import os
+import numpy as np
+from tensorflow.keras.preprocessing.image import load_img, img_to_array
+from sklearn.model_selection import train_test_split
+
+data_dir = '/content/drive/My Drive/parking_lot_data'
+categories = ['empty', 'not_empty']
+
+IMG_SIZE = (64, 64)
+data = []
+labels = []
+
+for category in categories:
+    category_path = os.path.join(data_dir, category)
+    for img in os.listdir(category_path):
+        img_path = os.path.join(category_path, img)
+        img_array = load_img(img_path, target_size=IMG_SIZE)
+        img_array = img_to_array(img_array) / 255.0
+        data.append(img_array)
+        labels.append(categories.index(category))
+
+data = np.array(data)
+labels = np.array(labels)
+
+x_train, x_test, y_train, y_test = train_test_split(data, labels, test_size=0.2, random_state=42)
