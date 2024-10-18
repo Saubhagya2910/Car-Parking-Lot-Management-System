@@ -1,0 +1,11 @@
+# Train the model
+history = model.fit(x_train, y_train, epochs=10, batch_size=32, validation_split=0.2)
+
+# Plot training history
+import matplotlib.pyplot as plt
+plt.plot(history.history['accuracy'], label='Accuracy')
+plt.plot(history.history['val_accuracy'], label = 'Val Accuracy')
+plt.xlabel('Epochs')
+plt.ylabel('Accuracy')
+plt.legend(loc='lower right')
+plt.show()
